@@ -9,12 +9,23 @@ function createWindow() {
 
 app.whenReady().then(() => {
     createWindow();
-
-    setTimeout(() => {
-        app.quit();
-
-    }, 3000)
 });
+
+
+//https://nodejs.org/api/process.html#processplatform
+app.on('window-all-closed', () => {
+    if (process.platform!== 'darwin') {
+        app.quit();
+    }
+});
+
+app.on('activate', () => {
+    if(BrowserWindows.getAllWindows().length === 0) {
+        createWindow();
+    }
+});
+
+
 
 
 
